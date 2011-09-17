@@ -1,4 +1,5 @@
 ﻿knockoutMvvmExtensionsDebugCallback([
-	'src/test1.js',
-	'src/test2.js'
+	'src/namespace.js',
+	'src/utils.js',
+	'src/ooUtils.js'
 ]);

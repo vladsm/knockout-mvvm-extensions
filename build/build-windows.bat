@@ -1,7 +1,7 @@
 @echo off 
 
 set SrcFiles=version-header.js
-set SrcFilesForCopy=version-header.js
+set SrcFilesForDebug=version-header.js
 
 for /f "eol=] skip=1 delims='	 " %%i in (knockout-mvvm-ext-source-references.js) do (
 	set Filename=%%i & call :PrepareSrcFiles
@@ -9,14 +9,17 @@ for /f "eol=] skip=1 delims='	 " %%i in (knockout-mvvm-ext-source-references.js)
 goto :CombineIntoSingleFile
 
 :PrepareSrcFiles
-    set Filename=%Filename:/=\%
+	set Filename=%Filename:/=\%
 	set SrcFiles=%SrcFiles% ..\%Filename%
-	set SrcFilesForCopy=%SrcFilesForCopy%+..\%Filename%
+	set SrcFilesForDebug=%SrcFilesForDebug%+..\%Filename%
 goto :EOF
 
 :CombineIntoSingleFile
 
-copy /Y /A /B %SrcFilesForCopy% output\knockout-mvvm-ext.js
+rem debug version
+copy /Y /A /B %SrcFilesForDebug% output\knockout-mvvm-ext.js
 
-@echo off
-tools\ajaxmin\ajaxmin %SrcFiles% -clobber -analyze -o output\knockout-mvvm-ext.min.js
+rem minified version
+tools\ajaxmin\ajaxmin %SrcFiles% -clobber -analyze -o output\knockout-mvvm-ext.min.temp.js
+copy /Y /A /B version-header.js+output\knockout-mvvm-ext.min.temp.js output\knockout-mvvm-ext.min.js
+del /F /Q output\knockout-mvvm-ext.min.temp.js
