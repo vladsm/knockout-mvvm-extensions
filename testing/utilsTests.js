@@ -2,18 +2,18 @@
 
 module ("Common utils");
 
-test("ko.mvvm.utils.isDefined works correctly", function() {
+test("ko.mvvm.utils.defined works correctly", function() {
 	var obj = {};
 	var undefinedObj;
 
-	defined(ko.mvvm.utils.isDefined);
-	ok(ko.mvvm.utils.isDefined(obj));
-	ok(!ko.mvvm.utils.isDefined());
-	ok(!ko.mvvm.utils.isDefined(undefinedObj));
-	ok(ko.mvvm.utils.isDefined(null));
-	ok(ko.mvvm.utils.isDefined(false));
-	ok(ko.mvvm.utils.isDefined(0));
-	ok(ko.mvvm.utils.isDefined(""));
+	defined(ko.mvvm.utils.defined);
+	ok(ko.mvvm.utils.defined(obj));
+	ok(!ko.mvvm.utils.defined());
+	ok(!ko.mvvm.utils.defined(undefinedObj));
+	ok(ko.mvvm.utils.defined(null));
+	ok(ko.mvvm.utils.defined(false));
+	ok(ko.mvvm.utils.defined(0));
+	ok(ko.mvvm.utils.defined(""));
 });
 
 test("ko.mvvm.utils.isFunction works correctly", function() {
@@ -35,6 +35,18 @@ test("ko.mvvm.utils.isFunction works correctly", function() {
 test("ko.mvvm.utils.emptyFunction is defined", function() {
 	defined(ko.mvvm.utils.emptyFunction);
 	ok(ko.mvvm.utils.isFunction(ko.mvvm.utils.emptyFunction));
+});
+
+test("ko.mvvm.utils.isArray works correctly", function() {
+	defined(ko.mvvm.utils.isArray);
+	ok(ko.mvvm.utils.isArray([]));
+	ok(ko.mvvm.utils.isArray([1,2,3]));
+	ok(!ko.mvvm.utils.isArray({}));
+	ok(!ko.mvvm.utils.isArray(null));
+	ok(!ko.mvvm.utils.isArray(""));
+	ok(!ko.mvvm.utils.isArray("123"));
+	ok(!ko.mvvm.utils.isArray(new Date()));
+	ok(!ko.mvvm.utils.isArray(function() {return 0;}));
 });
 
 })();

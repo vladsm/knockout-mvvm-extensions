@@ -5,13 +5,17 @@
 	<title>Knockout MVVM Extensions - QUnit Test Suite</title>
 	<link rel="stylesheet" href="lib/qunit/qunit.css" type="text/css" media="screen"/>
 	<script type="text/javascript" src="lib/qunit/qunit.js"></script>
+	<script type="text/javascript" src="common/qunitUtils.js"></script>
+	<script type="text/javascript" src="lib/jquery/jquery-1.6.1.js"></script>
 	<script type="text/javascript" src="../lib/knockout/knockout.debug.js"></script>
 	<script src="../build/knockout-mvvm-ext-debug.js" type="text/javascript"></script>
-	<script type="text/javascript" src="common/qunitUtils.js"></script>
 	
 	<script src="namespaceTests.js" type="text/javascript"></script>
 	<script src="utilsTests.js" type="text/javascript"></script>
+	<script src="enumerableTests.js" type="text/javascript"></script>
 	<script src="ooUtilsTests.js" type="text/javascript"></script>
+	<script src="dependentObservablesTests.js" type="text/javascript"></script>
+	<script src="bindingObjectModelTests.js" type="text/javascript"></script>
 </head>
 <body>
 	<h1 id="qunit-header">QUnit Test Suite</h1>
@@ -20,6 +24,25 @@
 	<h2 id="qunit-userAgent"></h2>
 	<ol id="qunit-tests"></ol>
 
-	<div id="qunit-fixture">test markup</div>
+	<div id="qunit-fixture">
+
+		<!-- Dependent observable tests -->
+		<div id="dependentObservablesTests">
+			<div id="dependentObservablesTests_selectedProductId" data-bind="text: selectedProductId"></div>
+			<input type="text" id="dependentObservablesTests_selectedProductTitle" data-bind="value: selectedProductTitle" />
+			<div id="dependentObservablesTests_throttled1SelectedProductId" data-bind="text: throttled1SelectedProductId"></div>
+			<input type="text" id="dependentObservablesTests_throttled2SelectedProductId" data-bind="value: throttled2SelectedProductId" />
+		</div>
+		
+		<!-- Bindings object model tests -->
+		<div id="bindingObjectModelTests1">
+			<div data-bind="test: value"></div>
+		</div>
+		<div id="bindingObjectModelTests2">
+			<div data-bind="derivedTest: value"></div>
+		</div>
+
+	</div>
+
 </body>
 </html>

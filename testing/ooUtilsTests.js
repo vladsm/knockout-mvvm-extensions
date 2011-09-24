@@ -4,7 +4,8 @@ var Figure = Class.define({
 	initialize: function(color) {
 		this.color = color;
 	},
-	getArea: Class.abstract("getArea is not implemented.")
+	getArea: Class.abstract().hint("getArea() is not implemented."),
+	draw: Class.abstract(function(position){})
 });
 
 var Rectangle = Class.define(Figure, {
@@ -75,9 +76,12 @@ test("The abstract method throws exception", function() {
 
 	raises(
 		figure.getArea,
-		function(ex) {
-			return ex == "getArea is not implemented.";
-		}
+		function(ex) { return ex == "getArea() is not implemented."; }
+	);
+
+	raises(
+		function() { figure.draw({x: 0, y: 0}); },
+		function(ex) { return ex == "Abstract method is not overridden."; }
 	);
 });
 
@@ -115,6 +119,19 @@ test("Methods are inherited from the base class", function(){
 	ok(square.getArea != null && ko.mvvm.utils.isFunction(square.getArea));
 	var area = square.getArea();
 	equal(area, 100);
+});
+
+test("The base initializer is called even though the derived class initializer is not defined", function() {
+	var A = Class.define({
+		initialize: function() {
+			ok(true, "The base initializer is called");
+		}
+	});
+
+	var B = Class.define(A, {});
+	
+	var b = new B();
+	expect(1);
 });
 
 })();

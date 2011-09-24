@@ -1,3 +1,5 @@
+(function() {
+
 ko.mvvm.Class =
 {
 	define: function(baseClass, prototypeContent) {
@@ -33,9 +35,19 @@ ko.mvvm.Class =
 		return theClass;
 	},
 
-	abstract: function(message) {
-		return function() { throw message || "Abstract method is not overridden."; };
+	abstract: function(methodDeclaration) {
+		return abstractStub;
 	}
 };
+
+var abstractException = "Abstract method is not overridden.";
+var abstractStub = function() {
+	throw abstractException;
+};
+abstractStub.hint = function(message) {
+	return function() { throw (message || abstractExceptions); };
+}
+
+})();
 
 window.Class = ko.mvvm.Class;
