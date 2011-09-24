@@ -15,7 +15,7 @@ test("ko.mvvm.enumerable member methods throw exceptions on invalid input", func
 		{
 			method: "first",
 			arguments: [utils.emptyFunction, null]
-		},
+		}
 	];
 	var collectionCases = [
 		{
